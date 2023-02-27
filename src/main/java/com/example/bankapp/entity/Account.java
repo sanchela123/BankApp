@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import java.sql.Time;
+import java.util.Set;
 
 @Data
 @Entity
@@ -33,4 +34,20 @@ public class Account {
     @OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private User user;
+
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
+    private Set<Card> cards;
+
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
+    private Set<Contribution> contributions;
+
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
+    private Set<Credit> credits;
+
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
+    private Set<External_transactions> ex_transactions;
+
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
+    private Set<Internal_transactions> int_transactions;
+
 }

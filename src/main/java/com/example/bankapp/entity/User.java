@@ -10,7 +10,7 @@ import lombok.NonNull;
 @Data
 @Entity
 @NoArgsConstructor
-@Table(name = "bank_address")
+@Table(name = "bank_user")
 public class User {
     @Id
     @Column(name = "user_id")
