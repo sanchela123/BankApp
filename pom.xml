@@ -73,7 +73,8 @@
 			<artifactId>jakarta.validation-api</artifactId>
 		</dependency>
 
-    </dependencies>
+
+	</dependencies>
 
 	<build>
 		<plugins>

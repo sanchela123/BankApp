@@ -17,6 +17,9 @@ public class Card {
     private Long card_number;
 
     @NotNull
+    private Long card_contribution_number;
+
+    @NotNull
     private Date date_expr;
 
     private Long mn_amount;

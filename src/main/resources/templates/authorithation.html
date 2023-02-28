@@ -1,10 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8" >
+    <title>Log in with your account</title>
 </head>
+<style>
+    Body {
+        font-family: Calibri, Helvetica, sans-serif;
+    }
+    input {
+        width: 98%;
+        margin: 1%;
+        padding: 12px 10px;
+        display: inline-block;
+        border: 2px solid black;
+        box-sizing: border-box;
+        -webkit-border-radius: 5px;
+
+    }
+    .container {
+        border: 2px solid black;
+        width: 500px;
+        margin: 1% auto;
+        background-color: #D5FFAEF9;
+        -webkit-border-radius: 30px;
+    }
+    button {
+        float: right;
+        margin-right: 5%;
+    }
+    h2 {
+        text-align: center;
+    }
+    p {
+        margin-left:2%;
+    }
+    h4 {
+        margin-right:2%;
+    }
+    .image-container {
+        text-align: center;
+    }
+
+</style>
 <body>
+
+<div class="image-container">
+    <img src="images/Logo.png"/>
+</div>
+
+<div class="container">
+    <form method="POST" action="/login">
+        <h2>Добро пожаловать в личный кабинет банка TinkOn!</h2>
+        <p>Для продолжения работы введите свои учетные данные или зарегистрируйтесь!</p>
+        <div>
+            <input name="username" type="text" placeholder="Username" autofocus="true"/>
+            <input name="password" type="password" placeholder="Password"/>
+            <button type="submit">Войти</button>
+            <h4><a href="/registration">Зарегистрироваться</a></h4>
+        </div>
+    </form>
+</div>
 
 </body>
 </html>

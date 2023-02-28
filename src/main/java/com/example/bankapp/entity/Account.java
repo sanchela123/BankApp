@@ -28,6 +28,8 @@ public class Account {
     @NonNull
     @Size(min = 5,message = "Password must been more than 5 characters" )
     private String password;
+    @Transient
+    private String passwordConfirm;
     @NonNull
     private Time cr_time;
 
