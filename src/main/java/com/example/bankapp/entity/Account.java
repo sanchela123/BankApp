@@ -3,19 +3,23 @@ package com.example.bankapp.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.*;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.sql.Time;
+import java.util.Collection;
 import java.util.Set;
 
 @Data
 @Entity
 @NoArgsConstructor
 @Table(name = "bank_account")
-public class Account {
+public class Account implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -33,9 +37,26 @@ public class Account {
     @NonNull
     private Time cr_time;
 
-    @OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
+    @Size(min = 6, max = 6, message = "The number must contain 6 digits")
+    private Long phone_number;
+    @OneToOne(mappedBy = "account")
     @PrimaryKeyJoinColumn
-    private User user;
+    private Address address;
+    @Email
+    private String email;
+    @Size(min = 2)
+    private String name;
+    @Size(min = 2)
+    private String surname;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Role> roles;
+
+    public Set<Role> getRoles(){
+        return roles;
+    }
+
+
 
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     private Set<Card> cards;
@@ -52,4 +73,33 @@ public class Account {
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     private Set<Internal_transactions> int_transactions;
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return null;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
+    }
 }

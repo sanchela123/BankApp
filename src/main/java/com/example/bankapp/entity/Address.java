@@ -27,5 +27,5 @@ public class Address {
     @OneToOne(fetch = FetchType.LAZY)
     @MapsId
     @JoinColumn(name = "address_id")
-    private User user;
+    private Account account;
 }
