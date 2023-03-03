@@ -1,0 +1,36 @@
+Body {
+    font-family: Calibri, Helvetica, sans-serif;
+}
+input {
+    width: 98%;
+    margin: 1%;
+    padding: 12px 10px;
+    display: inline-block;
+    border: 2px solid black;
+    box-sizing: border-box;
+    -webkit-border-radius: 5px;
+
+}
+.container {
+    border: 2px solid black;
+    width: 500px;
+    margin: 1% auto;
+    background-color: #D5FFAEF9;
+    -webkit-border-radius: 30px;
+}
+button {
+    float: right;
+    margin-right: 5%;
+}
+h2 {
+    text-align: center;
+}
+p {
+    margin-left:2%;
+}
+h4 {
+    margin-right:2%;
+}
+.image-container {
+    text-align: center;
+}
