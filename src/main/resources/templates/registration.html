@@ -1,10 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Главная</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" th:href="@{/styles.css}" />
 </head>
 <body>
+<div class="reg-form">
+    <form th:action="@{/registration}" method="POST" modelAttribute="registrationFormUserAccount" >
+        <h2>Регистрация</h2>
+        <div class="input-form">
+            <input type="text" th:field="*{registrationFormUserAccount.login}" placeholder="Login"
+                   autofocus="true"/>
+            <span  class="error" th:if="${loginError}"th:text="${loginError}"> Invalid Username</span>
+            <span  class="error" th:if="${loginErrorValidate}"th:text="${loginErrorValidate}">Invalid Username2</span>
 
+        </div>
+        <div class="inpput-form">
+            <input type="password" th:field="*{registrationFormUserAccount.password}" placeholder="Password">
+            <span  class="error" th:if="${passwordErrorValidate}"th:text="${passwordErrorValidate}">Invalid Username3</span>
+        </div>
+        <div>
+            <input type="password" th:field="*{registrationFormUserAccount.passwordConfirm}"
+                   placeholder="Confirm your password">
+            <span class="error" th:if="${passwordError}" th:text="${passwordError}">Invalid Password</span>
+        </div>
+        <div>
+            <input type="" th:field="registrationFormUserAccount" placeholder="Username">
+        </div>
+        <div>
+            <input type="" th:field="registrationFormUserAccount" placeholder="Email">
+        </div>
+        <div>
+            <input type="" th:field="registrationFormUserAccount" placeholder="Phone">
+        </div>
+
+
+
+        <button type="submit">Зарегистрироваться</button>
+    </form>
+
+    <form th:action="@{/registration}" method="POST" modelAttribute="registrationFormUserAccount" >
+        modelAmodelAttribute2="registrationFormAddress"
+        <div>
+            <input type="" th:field="registrationFormUserAccount" placeholder="Country">
+            <input type="" th:field="registrationFormUserAccount" placeholder="City">
+            <input type="" th:field="registrationFormUserAccount" placeholder="House">
+            <input type="" th:field="registrationFormUserAccount" placeholder="Apartment">
+        </div>
+
+        <a href="/">Главная</a>
+</div>
 </body>
 </html>

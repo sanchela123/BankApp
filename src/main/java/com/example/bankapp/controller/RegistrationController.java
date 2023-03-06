@@ -1,6 +1,7 @@
 package com.example.bankapp.controller;
 
 import com.example.bankapp.entity.Account;
+import com.example.bankapp.entity.Address;
 import com.example.bankapp.service.RegistrationService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class RegistrationController {
     @GetMapping("/registration")
     public String registration(Model model){
         model.addAttribute("registrationFormUserAccount", new Account());
-
+        model.addAttribute("registrationFormAddress", new Address());
         return "registration";
 
     }
@@ -29,7 +30,7 @@ public class RegistrationController {
                                     BindingResult bindingResult, Model model ){
         if (bindingResult.hasErrors()){
             if (accountForm.getLogin().length()<5)
-                model.addAttribute("usernameErrorValidate", "Логин должен быть больше 5 симоволов");
+                model.addAttribute("loginErrorValidate", "Логин должен быть больше 5 симоволов");
             if (accountForm.getPassword().length()<5)
                 model.addAttribute("passwordErrorValidate", "Пароль должен быть больше 5 симоволов");
             return "registration";
