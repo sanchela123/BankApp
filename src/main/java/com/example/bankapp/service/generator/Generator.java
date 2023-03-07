@@ -1,38 +1,45 @@
 package com.example.bankapp.service.generator;
 
 
+import com.example.bankapp.repository.AccountRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.sql.Timestamp;
+import java.util.*;
 
 
-@Component
+@Service
+
 public class Generator {
-    volatile Long firstCardNumber = 100000000000000L;
+
+    @Autowired
+    AccountRepository accountRepository;
+
+    Long firstCardNumber = 100000000000000L;
     Long maxCardNumber = 9999999999999999L;
-    volatile Long firstCheckNumber = 100000000000L;
+    Long firstCheckNumber = 100000000000L;
     Long maxCheckNumber = 9999999999999L;
+
 
 
     Set<Long> deleteCardNumber = Collections.synchronizedSet(new HashSet<>());
     Set<Long> deleteCheckNumber = Collections.synchronizedSet(new HashSet<>());
+    Set<Long> AllCardNumber = Collections.synchronizedSet(new HashSet<>());
 
-    class OutOfRange extends Exception {
+
+    public class OutOfRange extends Exception {
 
     }
-
+    public Date CreationTime(){
+        return new Date();
+    }
 
     public Long GenerateCardNumber() throws OutOfRange {
-        Long CardNumForDelit;
+  //      AllCardNumber = accountRepository.getAllByAccount_number();
         //Проверяем пул для номера карты
-        if (!deleteCardNumber.isEmpty()) {
-            CardNumForDelit = deleteCardNumber.stream().findFirst().orElse(-1L);
-            deleteCardNumber.remove(CardNumForDelit);
-            return CardNumForDelit;
-        }
+
         if (firstCardNumber++ == maxCardNumber)
             throw new OutOfRange();
         firstCardNumber++;
@@ -42,7 +49,7 @@ public class Generator {
     public Long GenerateCheckNumber() throws OutOfRange {
         Long CheckNumForDelit;
         //Проверяем пул свободных номеров
-        if (!deleteCardNumber.isEmpty()) {
+        if (!deleteCheckNumber.isEmpty()) {
             CheckNumForDelit = deleteCheckNumber.stream().findFirst().orElse(-1L);
             deleteCheckNumber.remove(CheckNumForDelit);
             return CheckNumForDelit;

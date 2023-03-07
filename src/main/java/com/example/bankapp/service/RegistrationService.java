@@ -3,8 +3,10 @@ package com.example.bankapp.service;
 import com.example.bankapp.entity.Account;
 import com.example.bankapp.entity.Role;
 import com.example.bankapp.repository.AccountRepository;
+import com.example.bankapp.service.generator.Generator;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import org.hibernate.annotations.CurrentTimestampGeneration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -19,16 +21,22 @@ import java.util.List;
 public class RegistrationService implements UserDetailsService {
 
     @Autowired
+    Generator generator;
+
+    @Autowired
     AccountRepository accountRepository;
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public boolean saveAccount(Account account){
+    public boolean saveAccount(Account account) throws Generator.OutOfRange {
         Account CheckAccountInBD = accountRepository.findByLogin(account.getLogin());
         if(CheckAccountInBD!=null)
             return false;
         account.setPassword(bCryptPasswordEncoder.encode(account.getPassword()));
         account.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
+        account.setAccount_number(generator.GenerateCardNumber());
+        account.setCr_time(generator.CreationTime());
+  //      System.out.println(account);
         accountRepository.save(account);
         return true;
     }

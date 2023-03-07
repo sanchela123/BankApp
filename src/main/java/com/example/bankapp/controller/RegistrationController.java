@@ -3,6 +3,7 @@ package com.example.bankapp.controller;
 import com.example.bankapp.entity.Account;
 import com.example.bankapp.entity.Address;
 import com.example.bankapp.service.RegistrationService;
+import com.example.bankapp.service.generator.Generator;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,7 +22,6 @@ public class RegistrationController {
     @GetMapping("/registration")
     public String registration(Model model){
         model.addAttribute("registrationFormUserAccount", new Account());
-        model.addAttribute("registrationFormAddress", new Address());
         return "registration";
 
     }
@@ -39,11 +39,15 @@ public class RegistrationController {
             model.addAttribute("passwordError","Пароли не совпадают");
             return "registration";
         }
-        if(!registrationService.saveAccount(accountForm)){
-            model.addAttribute("loginError", "Пользователь с таким логином уже существет, пожалуйста придумайте другой");
-            return "registration";
+        try {
+            if(!registrationService.saveAccount(accountForm)){
+                model.addAttribute("loginError", "Пользователь с таким логином уже существет, пожалуйста придумайте другой");
+                return "registration";
+            }
+        } catch (Generator.OutOfRange e) {
+            throw new RuntimeException(e);
         }
-        return "registration_status";
+        return "redirect:/registration_status";
     }
 
 

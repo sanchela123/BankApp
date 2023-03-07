@@ -17,7 +17,7 @@
             <span  class="error" th:if="${loginErrorValidate}"th:text="${loginErrorValidate}">Invalid Username2</span>
 
         </div>
-        <div class="inpput-form">
+        <div class="input-form">
             <input type="password" th:field="*{registrationFormUserAccount.password}" placeholder="Password">
             <span  class="error" th:if="${passwordErrorValidate}"th:text="${passwordErrorValidate}">Invalid Username3</span>
         </div>
@@ -27,13 +27,13 @@
             <span class="error" th:if="${passwordError}" th:text="${passwordError}">Invalid Password</span>
         </div>
         <div>
-            <input type="" th:field="registrationFormUserAccount" placeholder="Username">
+            <input type="username" th:field="*{registrationFormUserAccount.username}"  placeholder="Username">
         </div>
         <div>
-            <input type="" th:field="registrationFormUserAccount" placeholder="Email">
+            <input type="email" th:field="*{registrationFormUserAccount.email}"  placeholder="Email">
         </div>
         <div>
-            <input type="" th:field="registrationFormUserAccount" placeholder="Phone">
+            <input type="phone_number" th:field="*{registrationFormUserAccount.phone_number}"  placeholder="Phone">
         </div>
 
 
@@ -41,16 +41,7 @@
         <button type="submit">Зарегистрироваться</button>
     </form>
 
-    <form th:action="@{/registration}" method="POST" modelAttribute="registrationFormUserAccount" >
-        modelAmodelAttribute2="registrationFormAddress"
-        <div>
-            <input type="" th:field="registrationFormUserAccount" placeholder="Country">
-            <input type="" th:field="registrationFormUserAccount" placeholder="City">
-            <input type="" th:field="registrationFormUserAccount" placeholder="House">
-            <input type="" th:field="registrationFormUserAccount" placeholder="Apartment">
-        </div>
-
-        <a href="/">Главная</a>
+        <a href="/login">Главная</a>
 </div>
 </body>
 </html>

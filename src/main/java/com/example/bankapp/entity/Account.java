@@ -11,8 +11,8 @@ import lombok.NonNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.sql.Time;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Set;
 
 @Data
@@ -34,10 +34,9 @@ public class Account implements UserDetails {
     private String password;
     @Transient
     private String passwordConfirm;
-    @NonNull
-    private Time cr_time;
 
-    @Size(min = 6, max = 6, message = "The number must contain 6 digits")
+    private Date cr_time;
+
     private Long phone_number;
     @OneToOne(mappedBy = "account")
     @PrimaryKeyJoinColumn
@@ -46,8 +45,6 @@ public class Account implements UserDetails {
     private String email;
     @Size(min = 2)
     private String name;
-    @Size(min = 2)
-    private String surname;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
@@ -75,31 +72,35 @@ public class Account implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return getRoles();
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return login;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
+    }
+
+    public String toString(){
+        return "login : "+ login +" name: " +name + " email: " + email + " phone: "+ phone_number ;
     }
 }
