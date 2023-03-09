@@ -14,18 +14,15 @@ import java.util.Date;
 public class Card {
 
     @Id
-    private Long card_number;
+    private Long cardnumber;
 
     @NotNull
-    private Long card_contribution_number;
+    private Date dateexpr;
+
+    private Long mnamount;
 
     @NotNull
-    private Date date_expr;
-
-    private Long mn_amount;
-
-    @NotNull
-    private Date date_create;
+    private Date datecreate;
 
 
     @ManyToOne(fetch = FetchType.LAZY)

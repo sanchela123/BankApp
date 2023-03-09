@@ -39,14 +39,12 @@ public class RegistrationController {
             model.addAttribute("passwordError","Пароли не совпадают");
             return "registration";
         }
-        try {
+
             if(!registrationService.saveAccount(accountForm)){
                 model.addAttribute("loginError", "Пользователь с таким логином уже существет, пожалуйста придумайте другой");
                 return "registration";
             }
-        } catch (Generator.OutOfRange e) {
-            throw new RuntimeException(e);
-        }
+
         return "redirect:/registration_status";
     }
 

@@ -19,13 +19,13 @@ public class External_transactions {
     private Long id;
 
     @NotNull
-    private Long purpose_trans;
+    private Long purposetrans;
 
     @NotNull
-    private Long from_trans;
+    private Long fromtrans;
 
     @NotNull
-    private Date tr_time;
+    private Date trtime;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id")

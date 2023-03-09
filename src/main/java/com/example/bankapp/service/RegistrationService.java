@@ -28,15 +28,16 @@ public class RegistrationService implements UserDetailsService {
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public boolean saveAccount(Account account) throws Generator.OutOfRange {
+    public boolean saveAccount(Account account) {
         Account CheckAccountInBD = accountRepository.findByLogin(account.getLogin());
         if(CheckAccountInBD!=null)
             return false;
         account.setPassword(bCryptPasswordEncoder.encode(account.getPassword()));
         account.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
-        account.setAccount_number(generator.GenerateCardNumber());
+        account.setAccountnumber(generator.GenerateAccountNumber());
         account.setCr_time(generator.CreationTime());
-  //      System.out.println(account);
+
+        System.out.println(account);
         accountRepository.save(account);
         return true;
     }

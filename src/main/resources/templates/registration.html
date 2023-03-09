@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
     <title>Главная</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link rel="stylesheet" th:href="@{/styles.css}" />
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
 </head>
 <body>
 <div class="reg-form">
@@ -26,14 +25,14 @@
                    placeholder="Confirm your password">
             <span class="error" th:if="${passwordError}" th:text="${passwordError}">Invalid Password</span>
         </div>
-        <div>
-            <input type="username" th:field="*{registrationFormUserAccount.username}"  placeholder="Username">
+        <div class="input-form">
+            <input type="text" th:field="*{registrationFormUserAccount.name}"  placeholder="Name">
         </div>
-        <div>
+        <div class="input-form">
             <input type="email" th:field="*{registrationFormUserAccount.email}"  placeholder="Email">
         </div>
-        <div>
-            <input type="phone_number" th:field="*{registrationFormUserAccount.phone_number}"  placeholder="Phone">
+        <div class="input-form">
+            <input type="number" th:field="*{registrationFormUserAccount.phonenumber}"  placeholder="Phone number">
         </div>
 
 

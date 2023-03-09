@@ -16,15 +16,13 @@ public class Contribution {
     @Id
     private Long contr_id;
 
-
-
-    private Long mn_amount;
+    private Long mnamount;
 
     @NotNull
-    private Date date_expr;
+    private Date dateexpr;
 
     @NotNull
-    private Date date_create;
+    private Date datecreate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id")

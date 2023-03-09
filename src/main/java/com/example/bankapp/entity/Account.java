@@ -25,7 +25,7 @@ public class Account implements UserDetails {
     private Long id;
 
     @NonNull
-    private Long account_number;
+    private Long accountnumber;
     @NonNull
     @Size(min = 5,message = "Username must been more than 5 characters" )
     private String login;
@@ -37,7 +37,7 @@ public class Account implements UserDetails {
 
     private Date cr_time;
 
-    private Long phone_number;
+    private Long phonenumber;
     @OneToOne(mappedBy = "account")
     @PrimaryKeyJoinColumn
     private Address address;
@@ -101,6 +101,6 @@ public class Account implements UserDetails {
     }
 
     public String toString(){
-        return "login : "+ login +" name: " +name + " email: " + email + " phone: "+ phone_number ;
+        return "login : "+ login +" name: " +name + " email: " + email + " phone: "+ phonenumber;
     }
 }

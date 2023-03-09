@@ -2,6 +2,8 @@ package com.example.bankapp.service.generator;
 
 
 import com.example.bankapp.repository.AccountRepository;
+import com.example.bankapp.repository.CardRepository;
+import com.example.bankapp.repository.ContributionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -16,48 +18,51 @@ public class Generator {
 
     @Autowired
     AccountRepository accountRepository;
+    @Autowired
+    CardRepository cardRepository;
+    @Autowired
+    ContributionRepository contributionRepository;
 
-    Long firstCardNumber = 100000000000000L;
-    Long maxCardNumber = 9999999999999999L;
-    Long firstCheckNumber = 100000000000L;
-    Long maxCheckNumber = 9999999999999L;
+    Long firstAccountNumber = 100000000000000L;
+    Long maxAccountNumber = 9999999999999999L;
+    Long generatedNumber;
+    Long firstCheckNumberContribution = 100000000000L;
+    Long maxCheckNumberContribution =  3333333333333L;
+    Long firstCheckNumberCard = 3333333333334L;
+    Long maxCheckNumberCard = 6666666666666l;
+    Long minCheckNumberCredit = 6666666666667l;
+    Long maxCheckNumberCredit = 9999999999999L;
 
 
-
-    Set<Long> deleteCardNumber = Collections.synchronizedSet(new HashSet<>());
-    Set<Long> deleteCheckNumber = Collections.synchronizedSet(new HashSet<>());
-    Set<Long> AllCardNumber = Collections.synchronizedSet(new HashSet<>());
-
-
-    public class OutOfRange extends Exception {
-
-    }
+    Random random = new Random();
     public Date CreationTime(){
         return new Date();
     }
 
-    public Long GenerateCardNumber() throws OutOfRange {
-  //      AllCardNumber = accountRepository.getAllByAccount_number();
-        //Проверяем пул для номера карты
-
-        if (firstCardNumber++ == maxCardNumber)
-            throw new OutOfRange();
-        firstCardNumber++;
-        return firstCardNumber;
+    //Уникальный номер аккаунта пользователя
+    public Long GenerateAccountNumber() {
+        generatedNumber = random.nextLong(maxAccountNumber - firstAccountNumber)+ firstAccountNumber;
+        if(accountRepository.findAccountByAccountnumber(generatedNumber)!=null)
+            return GenerateAccountNumber();
+        return generatedNumber;
     }
 
-    public Long GenerateCheckNumber() throws OutOfRange {
-        Long CheckNumForDelit;
-        //Проверяем пул свободных номеров
-        if (!deleteCheckNumber.isEmpty()) {
-            CheckNumForDelit = deleteCheckNumber.stream().findFirst().orElse(-1L);
-            deleteCheckNumber.remove(CheckNumForDelit);
-            return CheckNumForDelit;
-        }
-        //Проверяем пул для номера счета
-        if (firstCheckNumber++ == maxCheckNumber)
-            throw new OutOfRange();
-        firstCheckNumber++;
-        return firstCheckNumber;
+    public Long GenerateContributionNumber() {
+        generatedNumber = random.nextLong(maxCheckNumberContribution - firstCheckNumberContribution)+ firstCheckNumberContribution;
+        if(contributionRepository.findById(generatedNumber)!=null)
+            return GenerateContributionNumber();
+        return generatedNumber;
+    }
+    public Long GenerateCardNumber()  {
+        generatedNumber = random.nextLong(maxCheckNumberCard - firstCheckNumberCard)+ firstCheckNumberCard;
+        if(cardRepository.findCardByCardnumber(generatedNumber)!=null)
+            return GenerateCardNumber();
+        return generatedNumber;
+    }
+    public Long GenerateCreditNumber()  {
+        generatedNumber = random.nextLong(maxCheckNumberCredit - minCheckNumberCredit)+ minCheckNumberCredit;
+        if(accountRepository.findAccountByAccountnumber(generatedNumber)!=null)
+            return GenerateCreditNumber();
+        return generatedNumber;
     }
 }

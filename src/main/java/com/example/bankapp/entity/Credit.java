@@ -16,12 +16,12 @@ public class Credit {
     private Long credit_number;
 
 
-    private Long mn_amount;
+    private Long mnamount;
 
 
+    private Date dateexpr;
 
-
-    private Date date_expr;
+    private Date createdate;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
