@@ -34,3 +34,27 @@ h4 {
 .image-container {
     text-align: center;
 }
+
+
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.column1 {
+    float: left;
+    width: 33.33%;
+    background-color: lightblue;
+}
+.column2 {
+    float: left;
+    width: 33.33%;
+    background-color: #71d8ff;
+}
+.column3 {
+    float: left;
+    width: 33.33%;
+    background-color: rgba(213, 246, 146, 0.98);
+}

@@ -1,10 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8" >
+    <title>Log in with your account</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
 </head>
+
 <body>
+
+<div class="image-container">
+    <img th:src="@{/images/Logo.png}"/>
+</div>
+
+<div class="home-container">
+        <h2>Добро пожаловать <span sec:authentication="name"></span></h2>
+        <p>Поздравляем с регистрацией !</p>
+        <h3>Разделы личного кабинета</h3>
+        <h4><a href="/lksettings">Настройки</a></h4>
+        <h4><a href="/manage">Счета</a></h4>
+        <h4><a href="/extrans">Переводы</a></h4>
+        <h4><a href="/logout">Выйти</a></h4>
+</div>
 
 </body>
 </html>
