@@ -11,20 +11,73 @@
 <div class="row">
     <div class="column1">
         <h3>Карты</h3>
-        <p>Some text..</p>
         <button name="firstbt" type="button" onclick="location.href='/lksettings.html'">+</button>
+        <table>
+            <thead>
+            <th>ID</th>
+            <th>Сard expiry date</th>
+            <th>Money Amount</th>
+            </thead>
+            <th:forEach items="${CardForm}" var="card">
+                <tr>
+                    <td>
+                <tr th:each="card: ${CardForm}">
+                    <td th:text="${card.cardnumber}"/>
+                    <td th:text="${card.dateexpr}"/>
+                    <td th:text="${card.mnamount}"/>
+                </tr>
+                </td>
+                </tr>
+            </th:forEach>
+        </table>
     </div>
     <div class="column2">
         <h3>Вклады</h3>
         <p>Some text..</p>
         <button name="secondtbt" type="button" onclick="location.href='/lksettings.html'">+</button>
+        <table>
+            <thead>
+            <th>Contribution ID</th>
+            <th>Contribution expiry date</th>
+            <th>Money Amount</th>
+            </thead>
+            <th:forEach items="${ContributionForm}" var="contribution">
+                <tr>
+                    <td>
+                <tr th:each="contribution: ${ContributionForm}">
+                    <td th:text="${contribution.contr_id}"/>
+                    <td th:text="${contribution.dateexpr}"/>
+                    <td th:text="${contribution.mnamount}"/>
+                </tr>
+                </td>
+                </tr>
+            </th:forEach>
+        </table>
     </div>
     <div class="column3">
         <h3>Кредиты</h3>
         <p>Some text..</p>
         <button name="thirdbt" type="button" onclick="location.href='/lksettings.html'">+</button>
+        <table>
+            <thead>
+            <th>ID</th>
+            <th>Credit expiry date</th>
+            <th>Money Amount</th>
+            </thead>
+            <th:forEach items="${CreditForm}" var="credit">
+                <tr>
+                    <td>
+                <tr th:each="credit: ${CreditForm}">
+                    <td th:text="${credit.credit_number}"/>
+                    <td th:text="${credit.dateexpr}"/>
+                    <td th:text="${credit.mnamount}"/>
+                </tr>
+                </td>
+                </tr>
+            </th:forEach>
+        </table>
     </div>
-    <button type="">Зарегистрироваться</button>
+    <button type="button" onclick="location.href='/lk'">Вернутся</button>
 </div>
 </body>
 
