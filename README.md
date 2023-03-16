@@ -5,5 +5,5 @@ Spring (MVC, DATA, Security, Boot);
 PostgreSQL;
 Thymeleaf;
 Maven;
-<img src="resources/images/BankApp.png"/>
-<img src="resources/images/BankBD.png"/>
+![Image alt](https://github.com/sanchela123/BankApp/master/art/BankApp.png)
+![Image alt2](https://github.com/sanchela123/BankApp/master/art/BankDB.png)
