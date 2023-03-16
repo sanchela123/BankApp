@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Главная</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+<div class="card-form">
+    <table>
+        <thead>
+        <th>ID</th>
+        <th>Сard expiry date</th>
+        <th>Money Amount</th>
+        </thead>
+        <th:forEach items="${CardForm}" var="card">
+            <tr>
+                <td>
+            <tr th:each="card: ${CardForm}">
+                <td th:text="${card.cardnumber}"/>
+                <td th:text="${card.dateexpr}"/>
+                <td th:text="${card.mnamount}"/>
+            </tr>
+            </td>
+            </tr>
+        </th:forEach>
+    </table>
+    <form th:action="@{/newcard}" method="POST">
+        <button type="submit">Открыть новую карту</button>
+    </form>
+</div>
+</body>
+</html>

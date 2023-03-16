@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter;
 
 
 @Configuration
@@ -25,6 +26,9 @@ public class WebSecurityConfig {
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception{
+        //Редирект со страницы логина при статусе авторизации=true
+        httpSecurity.addFilterBefore(new LoginPageFilter(), DefaultLoginPageGeneratingFilter.class);
+
         httpSecurity.csrf().disable().authorizeHttpRequests()
                 .requestMatchers("/css/**","/images/**").permitAll()
                 .requestMatchers("/registration", "/login", "/registration_status").permitAll()

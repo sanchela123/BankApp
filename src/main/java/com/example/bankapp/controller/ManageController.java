@@ -32,4 +32,6 @@ public class ManageController {
         model.addAttribute("CreditForm", creditRepository.findAllByAccountId(cardService.getAccountId()));
         model.addAttribute("ContributionForm", contributionRepository.findAllByAccountId(cardService.getAccountId()));
         return "manage";}
+
+
 }
