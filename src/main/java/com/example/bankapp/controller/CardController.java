@@ -21,20 +21,20 @@ public class CardController {
     @Autowired
     CardService cardService;
 
-    @GetMapping("/newcard")
+    @GetMapping("/cardmanage")
     public String cardcreation(Model model){
         model.addAttribute("CardForm", cardRepository.findAllByAccountId(cardService.getAccountId()));
         model.addAttribute("NewCardForm", new Card());
-        return "newcard";
+        return "cardmanage";
     }
 
-    @PostMapping("/newcard")
+    @PostMapping("/cardmanage")
     public String addNewCard(@ModelAttribute("NewCardForm") @Valid Card cardForm, BindingResult bindingResult, Model model){
         if (bindingResult.hasErrors()){
-            return "newcard";
+            return "cardmanage";
         }
         if(!cardService.saveCard(cardForm))
-            return "newcard";
+            return "cardmanage";
         return "redirect:/manage";
     }
 
