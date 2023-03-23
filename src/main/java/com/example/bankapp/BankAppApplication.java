@@ -1,5 +1,7 @@
 package com.example.bankapp;
 
+import com.example.bankapp.exchangeRateService.Proxy;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

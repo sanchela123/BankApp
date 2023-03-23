@@ -22,7 +22,6 @@ public class ManageController {
     private CreditRepository creditRepository;
     @Autowired
     private ContributionRepository contributionRepository;
-
     @Autowired
     private CardRepository cardRepository;
 
