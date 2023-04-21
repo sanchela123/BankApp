@@ -28,10 +28,6 @@ public class Proxy {
 
     @Autowired
     CurrencyRepository currencyRepository;
-
-    @Autowired
-    CurrencyService service;
-
     @Autowired
     Generator generator;
     Rates rates = new Rates();
@@ -41,13 +37,6 @@ public class Proxy {
     String string = restTemplate.getForObject(url, String.class);
     JsonNode jsonNode;
 
-    {
-        try {
-            jsonNode = mapper.readTree(string);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     //Update once an hour
     @Scheduled(fixedRate = 3600000)
@@ -66,6 +55,7 @@ public class Proxy {
         rates.setEurvalue(Double.valueOf(jsonNode.get("Valute").get("EUR").get("Value").toString()));
         rates.setCurrentdate(generator.CreationTime());
         System.out.println("Обновили Rates!");
+            saveCurrentRate(currencyRepository.getReferenceById(1L),currencyRepository.getReferenceById(2L), rates);
 
         return rates;
     }
@@ -81,7 +71,8 @@ public class Proxy {
     public Date lastUpdate() {
         return rates.getCurrentdate();
     }
-    public void saveCurrentRate(Currency currencyUSD, Currency currencyEUR){
+    //Почему две разных сущности Rates и Currency (Хотел изначально вынести Rates в DTO, без привязки к базе ???)
+    public void saveCurrentRate(Currency currencyUSD, Currency currencyEUR, Rates rates){
         currencyUSD.setCurrentValue(rates.getUsdvalue());
         currencyUSD.setBuyValue(rates.getUsdvalue()-2);
         currencyUSD.setSellValue(rates.getUsdvalue()+2);
@@ -92,6 +83,15 @@ public class Proxy {
         currencyEUR.setDate(rates.getCurrentdate());
         currencyRepository.save(currencyEUR);
         currencyRepository.save(currencyUSD);
+    }
+
+    public void saveFirstRates(){
+        Currency currency1 = new Currency();
+        Currency currency2 = new Currency();
+        currency1.setId(1L);
+        currency2.setId(2L);
+        currencyRepository.save(currency1);
+        currencyRepository.save(currency2);
     }
 
 
