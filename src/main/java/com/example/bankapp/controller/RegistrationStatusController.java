@@ -11,16 +11,5 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class RegistrationStatusController {
-/*
-    @Autowired
-    Proxy proxy;
 
-    @GetMapping("/registration_status")
-    public String status(Model model){
-        model.addAttribute("CurrencyForm", proxy.toString());
-
-        System.out.println("Current course:" + proxy.toString() );
-        return "registration_status";
-    }
-*/
 }

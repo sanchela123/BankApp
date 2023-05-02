@@ -50,11 +50,13 @@ public class ChangeService {
         Currency currencyUSD = new Currency();
         Currency currencyEUR = new Currency();
         currencyUSD.setId(1L);
+        currencyUSD.setName("USD");
         currencyUSD.setCurrentValue(CurrentUSDValue);
         currencyUSD.setBuyValue(CurrentUSDValue-CurrentEURValue*0.1);
         currencyUSD.setSellValue(CurrentUSDValue+CurrentUSDValue*0.1);
         currencyUSD.setDate(generator.CreationTime());
         currencyEUR.setId(2L);
+        currencyEUR.setName("EUR");
         currencyEUR.setCurrentValue(CurrentEURValue);
         currencyEUR.setBuyValue(CurrentEURValue-CurrentEURValue*0.1);
         currencyEUR.setSellValue(CurrentEURValue+CurrentUSDValue*0.1);

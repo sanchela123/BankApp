@@ -5,49 +5,41 @@
     <meta charset="utf-8" >
     <title>Log in with your account</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}" />
-    <script>
-        function CBR_XML_Daily_Ru(rates) {
-            function trend(current, previous) {
-                if (current > previous) return ' ▲';
-                if (current < previous) return ' ▼';
-                return '';
-            }
-
-            var USDrate = rates.Valute.USD.Value.toFixed(4).replace('.', ',');
-            var USD = document.getElementById('USD');
-            USD.innerHTML = USD.innerHTML.replace('00,0000', USDrate);
-            USD.innerHTML += trend(rates.Valute.USD.Value, rates.Valute.USD.Previous);
-
-            var EURrate = rates.Valute.EUR.Value.toFixed(4).replace('.', ',');
-            var EUR = document.getElementById('EUR');
-            EUR.innerHTML = EUR.innerHTML.replace('00,0000', EURrate);
-            EUR.innerHTML += trend(rates.Valute.EUR.Value, rates.Valute.EUR.Previous);
-        }
-    </script>
-    <link rel="dns-prefetch" href="https://www.cbr-xml-daily.ru/" />
-    <script src="//www.cbr-xml-daily.ru/daily_jsonp.js" async></script>
 </head>
 
 <body>
 
-<div class="exchange rates">
-    <h3>Курсы валют:</h3>
-<div id="USD">Доллар США $ — 00,0000 руб.</div>
-<div id="EUR">Евро € — 00,0000 руб.</div>
-</div>
 <div class="image-container">
     <img th:src="@{/images/Logo.png}"/>
+    <h2>Добро пожаловать <span sec:authentication="name"></span></h2>
 </div>
-
+<div class="exchange rates">
+    <h3>Курсы валют:</h3>
+    <table>
+        <thead>
+        <th>Currency</th>
+        <th>Buy Value</th>
+        <th>Sell Value</th>
+        </thead>
+        <th:forEach items="${CurrencyValue}" var="currency">
+            <tr>
+                <td>
+            <tr th:each="currency: ${CurrencyValue}">
+                <td th:text="${currency.name}" />
+                <td th:text="${currency.buyValue}" />
+                <td th:text="${currency.sellValue}" />
+            </tr>
+                 </td>
+            </tr>
+        </th:forEach>
+    </table>
+</div>
 <div class="home-container">
-        <h2>Добро пожаловать <span sec:authentication="name"></span></h2>
-        <p>Поздравляем с регистрацией !</p>
         <h3>Разделы личного кабинета</h3>
         <h4><a href="/lksettings">Настройки</a></h4>
         <h4><a href="/manage">Счета</a></h4>
         <h4><a href="/extrans">Переводы</a></h4>
         <h4><a href="/logout">Выйти</a></h4>
 </div>
-
 </body>
 </html>
