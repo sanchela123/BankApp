@@ -7,9 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 
+
+@Service
 public class LkSettingsService {
 
     @Autowired
@@ -24,25 +27,34 @@ public class LkSettingsService {
         Long userId = account.getId();
         return userId;
     }
+    public Account getCurrentAccount(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Account account = (Account) authentication.getPrincipal();
+        return account;
+    }
 
-    public boolean changeAccountOptions(Account oldaccountoptions, Account newaccounoptions){
-        Account CheckAccountInBD = accountRepository.findByLogin(newaccounoptions.getLogin());
+    public boolean changeAccountOptions(Account newAccountOptions){
+        Account oldaccountoptions = getCurrentAccount();
+        Account CheckAccountInBD = accountRepository.findByLogin(newAccountOptions.getLogin());
         //immutable options
-        newaccounoptions.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
-        newaccounoptions.setAccountnumber(oldaccountoptions.getAccountnumber());
-        newaccounoptions.setCr_time(oldaccountoptions.getCr_time());
-        newaccounoptions.setId(oldaccountoptions.getId());
-        newaccounoptions.setPassword(bCryptPasswordEncoder.encode(newaccounoptions.getPassword()));
+        newAccountOptions.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
+        newAccountOptions.setAccountnumber(oldaccountoptions.getAccountnumber());
+        newAccountOptions.setCr_time(oldaccountoptions.getCr_time());
+        newAccountOptions.setId(oldaccountoptions.getId());
         //changeable options
-        if(newaccounoptions.getPassword() == null)
-            newaccounoptions.setPassword(oldaccountoptions.getPassword());
+        if(newAccountOptions.getPassword() == "")
+            newAccountOptions.setPassword(oldaccountoptions.getPassword());
+            else
+            newAccountOptions.setPassword(bCryptPasswordEncoder.encode(newAccountOptions.getPassword()));
         //Дополнительно сообщить ползователю, что логин уже занят?
-        if(newaccounoptions.getLogin() == null || CheckAccountInBD!=null)
-            newaccounoptions.setLogin(oldaccountoptions.getLogin());
-        if(newaccounoptions.getPhonenumber() == null)
-            newaccounoptions.setPhonenumber(oldaccountoptions.getPhonenumber());
-        System.out.println(newaccounoptions);
-        accountRepository.save(newaccounoptions);
+        if(newAccountOptions.getLogin() == "" || CheckAccountInBD!=null)
+            newAccountOptions.setLogin(oldaccountoptions.getLogin());
+        if(newAccountOptions.getPhonenumber() == null)
+            newAccountOptions.setPhonenumber(oldaccountoptions.getPhonenumber());
+        if(newAccountOptions.getEmail() == "")
+            newAccountOptions.setEmail(oldaccountoptions.getEmail());
+        System.out.println(newAccountOptions);
+        accountRepository.save(newAccountOptions);
         return true;
     }
 }

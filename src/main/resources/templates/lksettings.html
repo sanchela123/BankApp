@@ -7,33 +7,33 @@
 </head>
 <body>
 <div class="reg-form">
-    <form th:action="@{/registration}" method="POST" modelAttribute="registrationFormUserAccount" >
+    <form th:action="@{/lksettings}" method="POST" modelAttribute="newAccountOptions" >
         <h2>Изменение данных пользователя</h2>
         <h3>Введите данные, которые необходимо изменить (атрибуты с пустыми полями останутся без изменений!)</h3>
         <div class="input-form">
-            <input type="text" th:field="*{registrationFormUserAccount.login}" placeholder="Login"
+            <input type="text" th:field="*{newAccountOptions.login}" placeholder="Login"
                    autofocus="true"/>
             <span  class="error" th:if="${loginError}"th:text="${loginError}"> Invalid Username</span>
             <span  class="error" th:if="${loginErrorValidate}"th:text="${loginErrorValidate}">Invalid Username2</span>
 
         </div>
         <div class="input-form">
-            <input type="password" th:field="*{registrationFormUserAccount.password}" placeholder="Password">
+            <input type="password" th:field="*{newAccountOptions.password}" placeholder="Password">
             <span  class="error" th:if="${passwordErrorValidate}"th:text="${passwordErrorValidate}">Invalid Username3</span>
         </div>
         <div>
-            <input type="password" th:field="*{registrationFormUserAccount.passwordConfirm}"
+            <input type="password" th:field="*{newAccountOptions.passwordConfirm}"
                    placeholder="Confirm your password">
             <span class="error" th:if="${passwordError}" th:text="${passwordError}">Invalid Password</span>
         </div>
         <div class="input-form">
-            <input type="text" th:field="*{registrationFormUserAccount.name}"  placeholder="Name">
+            <input type="text" th:field="*{newAccountOptions.name}"  placeholder="Name">
         </div>
         <div class="input-form">
-            <input type="email" th:field="*{registrationFormUserAccount.email}"  placeholder="Email">
+            <input type="email" th:field="*{newAccountOptions.email}"  placeholder="Email">
         </div>
         <div class="input-form">
-            <input type="number" th:field="*{registrationFormUserAccount.phonenumber}"  placeholder="Phone number">
+            <input type="number" th:field="*{newAccountOptions.phonenumber}"  placeholder="Phone number">
         </div>
 
 
