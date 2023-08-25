@@ -30,11 +30,11 @@ public class CardController {
 
     @PostMapping("/cardmanage")
     public String addNewCard(@ModelAttribute("NewCardForm") @Valid Card cardForm, BindingResult bindingResult, Model model){
-        if (bindingResult.hasErrors()){
+
+        if(!cardService.saveCard(cardForm)) {
+            System.out.println("We do smth");
             return "cardmanage";
         }
-        if(!cardService.saveCard(cardForm))
-            return "cardmanage";
         return "redirect:/manage";
     }
 

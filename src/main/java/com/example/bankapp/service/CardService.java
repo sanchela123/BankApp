@@ -9,6 +9,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 public class CardService {
 
@@ -16,6 +18,12 @@ public class CardService {
     Generator generator;
     @Autowired
     CardRepository cardRepository;
+
+    public Account getCurrentAccount(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Account account = (Account) authentication.getPrincipal();
+        return account;
+    }
 
     public Long getAccountId(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -29,7 +37,9 @@ public class CardService {
     public boolean saveCard(Card card){
         card.setDatecreate(generator.CreationTime());
         card.setCardnumber(generator.GenerateCardNumber());
+        card.setDateexpr(generator.ValidTimeForCard());
         card.setMnamount(0L);
+        card.setAccount(getCurrentAccount());
         cardRepository.save(card);
         return true;
     }

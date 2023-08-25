@@ -40,6 +40,7 @@ public class WebSecurityConfig {
                 .logout().permitAll().logoutSuccessUrl("/login");
         return httpSecurity.build();
     }
+    //При авторизации (иногда) первый раз вылетает редирект ?continue -> error page
 
     @Autowired
     protected void configureGlobal(AuthenticationManagerBuilder auth, BCryptPasswordEncoder bCryptPasswordEncoder) throws Exception {

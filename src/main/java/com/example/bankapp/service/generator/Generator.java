@@ -7,6 +7,7 @@ import com.example.bankapp.repository.ContributionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.util.DateUtils;
 
 import java.sql.Timestamp;
 import java.util.*;
@@ -36,6 +37,11 @@ public class Generator {
 
     Random random = new Random();
     public Date CreationTime(){
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.YEAR, 4);
+        return cal.getTime();
+    }
+    public Date ValidTimeForCard(){
         return new Date();
     }
 
